@@ -1,0 +1,8 @@
+openai
+langchain
+pinecone-client
+python_dotenv
+tiktoken
+docx2txt
+pypdf
+requests
