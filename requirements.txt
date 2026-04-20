@@ -16,9 +16,14 @@ numpy==1.26.4
 pypdf==4.2.0
 tqdm
 python-dotenv
+doxc2txt
+
+streamlit
 
 wikipedia
 
 torch 
 torchvision 
 torchaudio
+tiktoken
+chromadb
