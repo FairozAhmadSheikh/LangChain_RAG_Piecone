@@ -143,3 +143,21 @@ def ask_and_get_answers(vector_store, q):
     result = qa_chain.invoke({"query": q})
 
     return result["result"]
+
+# Function for calculating embedding cost
+def calculate_embedding_cost(texts):
+    import tiktoken
+
+    enc = tiktoken.encoding_for_model('text-embedding-ada-002')
+
+    total_tokens = sum(
+        len(enc.encode(page.page_content if hasattr(page, "page_content") else page))
+        for page in texts
+    )
+
+    cost = total_tokens / 1000 * 0.0004  # update if using newer model
+
+    print(f"Total Tokens: {total_tokens}")
+    print(f"Embedding cost in USD $: {cost:.6f}")
+
+    return total_tokens, cost
