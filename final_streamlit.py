@@ -1,6 +1,7 @@
 import streamlit as st
 import os 
 
+
 from langchain.vectorstores import Chroma
 from langchain_community.embeddings import HuggingFaceEmbeddings
 
@@ -161,3 +162,26 @@ def calculate_embedding_cost(texts):
     print(f"Embedding cost in USD $: {cost:.6f}")
 
     return total_tokens, cost
+
+
+# let's now add a sidebar
+if __name__=="__main__":
+    from dotenv import load_dotenv,find_dotenv
+    load_dotenv(find_dotenv(),override=True)
+
+    st.image("logo.png")
+    st.subheader("DocuMind : RAG Based Question Answering LLM ")
+
+    with st.sidebar:
+        api_key=st.text_input("Enter the API Key : ",type='password')
+        if api_key:
+            os.environ["GOOGLE_API_KEY"]=api_key
+        
+        uploaded_file=st.file_uploader('Upload a file : ',type=['pdf','docx','txt'])
+
+        chunk_size=st.number_input("Chunk Size : ", min_value=100,
+                                   max_value=2048,
+                                   value=512)
+        k=st.number_input("Choose K: ", min_value=1,max_value=20,value=3)
+        
+        add_data=st.button("Add Data")
