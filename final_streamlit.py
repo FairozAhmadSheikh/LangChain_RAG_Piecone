@@ -105,3 +105,41 @@ def insert_or_fetch_embedding(index_name, chunks):
         print(" Index created and data stored")
 
     return vector_store
+
+# Defining a function for question answering 
+
+def ask_and_get_answers(vector_store, q):
+    """
+    Ask question from vector DB using Gemini (FIXED)
+    """
+
+    from langchain_google_genai import ChatGoogleGenerativeAI
+    from langchain.chains import RetrievalQA
+    from dotenv import load_dotenv, find_dotenv
+
+    load_dotenv(find_dotenv(), override=True)
+
+    # add convert_system_message_to_human=True
+    llm = ChatGoogleGenerativeAI(
+        model="gemini-2.5-flash-lite",   # safer model
+        temperature=0,
+        convert_system_message_to_human=True
+    )
+
+    #  correct spelling (retriever)
+    retriever = vector_store.as_retriever(
+        search_type="similarity",
+        search_kwargs={"k": 3}
+    )
+
+    #  use proper constructor
+    qa_chain = RetrievalQA.from_chain_type(
+        llm=llm,
+        chain_type="stuff",
+        retriever=retriever
+    )
+
+    #  correct input format
+    result = qa_chain.invoke({"query": q})
+
+    return result["result"]
