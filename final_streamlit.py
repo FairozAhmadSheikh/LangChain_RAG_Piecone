@@ -185,3 +185,30 @@ if __name__=="__main__":
         k=st.number_input("Choose K: ", min_value=1,max_value=20,value=3)
         
         add_data=st.button("Add Data")
+
+        # Lets now process the Uploaded file 
+        
+        if uploaded_file and add_data:
+            # Display temperory spinner 
+            with st.spinner('Reading , Chunking and Embedding '):
+
+                """
+                The Uploaded file is contained in bytesIO Buffer in python Memory (RAM) not on disk so lets copy it to disk locally..
+
+                """
+                bytes_data=uploaded_file.read()
+                file_name=os.path.join('./',uploaded_file.name)
+                with open (file_name,'wb') as f:
+                    f.write(bytes_data)
+
+                # Load Document and chunk it 
+                data=load_documnets(file_name)
+                chunks=chunk_data(data)
+                
+                # Calculate Embedding Cost
+                tokens,embedding_cost=calculate_embedding_cost(chunks)
+
+                st.write(f"embedding cost but if you switch to chat gpt for now its free :{embedding_cost:.4f}" )
+
+                vector_store=insert_or_fetch_embedding(chunks)
+
