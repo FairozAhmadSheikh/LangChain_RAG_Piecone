@@ -163,6 +163,11 @@ def calculate_embedding_cost(texts):
 
     return total_tokens, cost
 
+# Clear session state history using call back functions
+def clear_history():
+    if 'history' in st.session_state['history']:
+        del st.session_state['history']
+
 
 # let's now add a sidebar
 if __name__=="__main__":
@@ -181,10 +186,10 @@ if __name__=="__main__":
 
         chunk_size=st.number_input("Chunk Size : ", min_value=100,
                                    max_value=2048,
-                                   value=512)
-        k=st.number_input("Choose K: ", min_value=1,max_value=20,value=3)
+                                   value=512,on_change=clear_history)
+        k=st.number_input("Choose K: ", min_value=1,max_value=20,value=3,on_change=clear_history)
         
-        add_data=st.button("Add Data")
+        add_data=st.button("Add Data",on_click=clear_history)
 
         # Lets now process the Uploaded file 
         
@@ -239,6 +244,8 @@ if __name__=="__main__":
 
         h=st.session_state.history
         st.text_area(label='Chat History',value=h,key='history',height=400)
+    
+
 
 
 
