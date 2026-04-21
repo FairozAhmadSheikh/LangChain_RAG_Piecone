@@ -203,12 +203,42 @@ if __name__=="__main__":
 
                 # Load Document and chunk it 
                 data=load_documnets(file_name)
-                chunks=chunk_data(data)
+                chunks=chunk_data(data,chunk_size=chunk_size)
                 
                 # Calculate Embedding Cost
                 tokens,embedding_cost=calculate_embedding_cost(chunks)
 
                 st.write(f"embedding cost but if you switch to chat gpt for now its free :{embedding_cost:.4f}" )
 
-                vector_store=insert_or_fetch_embedding(chunks)
+                vector_store=insert_or_fetch_embedding()
+
+                """
+                Need to save the vector store between page reloads , and we dont want to chunk and everytime 
+                user interacts with the widget 
+                so we will save the vector store in the session state as 'vs' VectorStore 
+                """
+
+                st.session_state.vs=vector_store
+                st.success("File Uploaded , Chunked and Embedded Sucessfully")
+    q=st.text_input("Ask a Question about the content of Your Uploaded File : ")
+    """
+    If the user has entered a question and if the vector store is already in the session state ,
+    Load the Vector Store from session state into a variable
+    """
+    if q : 
+        if 'vs' in st.session_state:
+            vector_store=st.session_state.values
+            st.write(f'k:{k}')
+            answer=ask_and_get_answers(vector_store,q,k)
+            st.text_area('llm Answer : ',value=answer)
+        st.divider()
+        if 'history' not in st.session_state:
+            st.session_state.history=''
+        value= f' Q: {q}\n A:{answer}'
+        st.session_state.history=f'{value}\n {'-'*100}\n {st.session_state.history}'
+
+        h=st.session_state.history
+        st.text_area(label='Chat History',value=h,key='history',height=400)
+
+
 
