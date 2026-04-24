@@ -1,31 +1,28 @@
-# LangChain (compatible set)
-langchain==0.1.20
-langchain-core==0.1.52
-langchain-community==0.0.38
+streamlit==1.32.2
+python-dotenv==1.0.1
 
-# Pinecone (new SDK + compatible wrapper)
-pinecone==5.4.0
+# Voice
+SpeechRecognition==3.10.1
+audio-recorder-streamlit==0.0.8
+
+# LangChain ecosystem (carefully pinned to avoid breaking changes)
+langchain==0.1.20
+langchain-community==0.0.38
+langchain-text-splitters==0.0.1
+langchain-google-genai==1.0.3
 langchain-pinecone==0.0.3
 
-# Gemini (compatible with older langchain-core)
-langchain-google-genai==0.0.11
-google-generativeai==0.4.1
+# Embeddings & NLP
+sentence-transformers==2.6.1
+tiktoken==0.7.0
 
-# Utilities
-numpy==1.26.4
+# Pinecone (new SDK but stable)
+pinecone==3.2.2
+
+# Document loaders
 pypdf==4.2.0
-tqdm
-python-dotenv
-doxc2txt
+python-docx==1.1.0
+docx2txt==0.8
 
-streamlit
-
-wikipedia
-
-torch 
-torchvision 
-torchaudio
-tiktoken
-chromadb
-
-
+# Optional but required internally by some loaders
+unstructured==0.13.7
