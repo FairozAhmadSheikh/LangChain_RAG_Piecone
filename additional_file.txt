@@ -1,0 +1,31 @@
+# ── Web app ──────────────────────────────────────────────
+streamlit>=1.35.0
+
+# ── Voice input ───────────────────────────────────────────
+audio-recorder-streamlit>=0.0.8
+SpeechRecognition>=3.10.0
+
+# ── LangChain core ───────────────────────────────────────
+langchain>=0.2.0
+langchain-community>=0.2.0
+langchain-text-splitters>=0.2.0
+
+# ── LLM — Google Gemini ───────────────────────────────────
+langchain-google-genai>=1.0.0
+
+# ── Vector DB — Pinecone ──────────────────────────────────
+pinecone-client>=3.2.0
+langchain-pinecone>=0.1.0
+
+# ── Embeddings — HuggingFace (local, no API key) ─────────
+sentence-transformers>=2.7.0
+
+# ── Document loaders ─────────────────────────────────────
+pypdf>=4.0.0
+docx2txt>=0.8
+
+# ── Embedding cost estimator ──────────────────────────────
+tiktoken>=0.7.0
+
+# ── Environment variables ─────────────────────────────────
+python-dotenv>=1.0.0

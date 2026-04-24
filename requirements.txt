@@ -27,3 +27,5 @@ torchvision
 torchaudio
 tiktoken
 chromadb
+
+
