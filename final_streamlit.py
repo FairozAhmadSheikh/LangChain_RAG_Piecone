@@ -2,9 +2,9 @@ import streamlit as st
 import os
 import tempfile
 
-# ─────────────────────────────────────────────────────────────────────────────
-# PAGE CONFIG  (must be first Streamlit call)
-# ─────────────────────────────────────────────────────────────────────────────
+
+# PAGE CONFIG  
+
 st.set_page_config(
     page_title="DocuMind",
     page_icon="🧠",
@@ -12,9 +12,9 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # GLOBAL CSS
-# ─────────────────────────────────────────────────────────────────────────────
+
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
@@ -178,9 +178,8 @@ label, .stNumberInput label { color: var(--text-2) !important; font-size: 0.83re
 """, unsafe_allow_html=True)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # VOICE HELPERS
-# ─────────────────────────────────────────────────────────────────────────────
 
 def transcribe_audio(audio_bytes: bytes) -> str:
     """
@@ -240,9 +239,7 @@ def tts_widget(answer_text: str):
     components.html(html, height=56)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # DOCUMENT HELPERS
-# ─────────────────────────────────────────────────────────────────────────────
 
 def load_documents(file):
     _, extension = os.path.splitext(file)
@@ -315,9 +312,7 @@ def clear_history():
         del st.session_state['history']
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # MAIN
-# ─────────────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
     from dotenv import load_dotenv, find_dotenv
@@ -331,7 +326,7 @@ if __name__ == "__main__":
     </div>
     """, unsafe_allow_html=True)
 
-    # ── Sidebar ───────────────────────────────────────────────────────────────
+    # Sidebar
     with st.sidebar:
         st.markdown("### ⚙️ Configuration")
 
@@ -381,7 +376,7 @@ if __name__ == "__main__":
             Powered by Gemini · Pinecone · LangChain
         </div>""", unsafe_allow_html=True)
 
-    # ── Voice input ───────────────────────────────────────────────────────────
+    # Voice input 
     st.markdown('<div class="section-label">🎙️ Voice input</div>', unsafe_allow_html=True)
 
     voice_text = ""
@@ -419,7 +414,7 @@ if __name__ == "__main__":
             "Then restart. You can still type questions below."
         )
 
-    # ── Question input ────────────────────────────────────────────────────────
+    # Question input
     st.markdown('<div class="section-label">💬 Your question</div>', unsafe_allow_html=True)
     q = st.text_input(
         "question",
@@ -428,7 +423,7 @@ if __name__ == "__main__":
         label_visibility="collapsed"
     )
 
-    # ── Answer ────────────────────────────────────────────────────────────────
+    #   Answer 
     answer = ""
     if q:
         if 'vs' not in st.session_state:
