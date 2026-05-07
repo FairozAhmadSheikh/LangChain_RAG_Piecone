@@ -11,6 +11,8 @@ langchain-community==0.0.38
 langchain-text-splitters==0.0.1
 langchain-google-genai==1.0.3
 langchain-pinecone==0.0.3
+langchain-groq
+langchain-core
 
 # Embeddings & NLP
 sentence-transformers==2.6.1
@@ -26,3 +28,6 @@ docx2txt==0.8
 
 # Optional but required internally by some loaders
 unstructured==0.13.7
+
+networkx
+matplotlib
