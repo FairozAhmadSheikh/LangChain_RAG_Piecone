@@ -31,3 +31,4 @@ unstructured==0.13.7
 
 networkx
 matplotlib
+chromadb
