@@ -1,0 +1,155 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 700px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "id": "Esteban M. Aucejo", "label": "Esteban M. Aucejo", "shape": "dot"}, {"color": "#97c2fc", "id": "THE IMPACT OF COVID-19 ON STUDENT EXPERIENCES AND EXPECTATIONS: EVIDENCE FROM A SURVEY", "label": "THE IMPACT OF COVID-19 ON STUDENT EXPERIENCES AND EXPECTATIONS: EVIDENCE FROM A SURVEY", "shape": "dot"}, {"color": "#97c2fc", "id": "Jacob F. French", "label": "Jacob F. French", "shape": "dot"}, {"color": "#97c2fc", "id": "Maria Paola Ugalde Araya", "label": "Maria Paola Ugalde Araya", "shape": "dot"}, {"color": "#97c2fc", "id": "Basit Zafar", "label": "Basit Zafar", "shape": "dot"}, {"color": "#97c2fc", "id": "Working Paper 27392", "label": "Working Paper 27392", "shape": "dot"}, {"color": "#97c2fc", "id": "http://www.nber.org/papers/w27392", "label": "http://www.nber.org/papers/w27392", "shape": "dot"}, {"color": "#97c2fc", "id": "NATIONAL BUREAU OF ECONOMIC RESEARCH", "label": "NATIONAL BUREAU OF ECONOMIC RESEARCH", "shape": "dot"}, {"color": "#97c2fc", "id": "NBER WORKING PAPER SERIES", "label": "NBER WORKING PAPER SERIES", "shape": "dot"}, {"color": "#97c2fc", "id": "1050 Massachusetts Avenue", "label": "1050 Massachusetts Avenue", "shape": "dot"}, {"color": "#97c2fc", "id": "Cambridge, MA 02138", "label": "Cambridge, MA 02138", "shape": "dot"}, {"color": "#97c2fc", "id": "June 2020", "label": "June 2020", "shape": "dot"}, {"color": "#97c2fc", "id": "Noah Deitrick", "label": "Noah Deitrick", "shape": "dot"}, {"color": "#97c2fc", "id": "Adam Streff", "label": "Adam Streff", "shape": "dot"}, {"color": "#97c2fc", "id": "research assistance", "label": "research assistance", "shape": "dot"}, {"color": "#97c2fc", "id": "authors", "label": "authors", "shape": "dot"}, {"color": "#97c2fc", "id": "National Bureau of Economic Research", "label": "National Bureau of Economic Research", "shape": "dot"}, {"color": "#97c2fc", "id": "NBER working papers", "label": "NBER working papers", "shape": "dot"}, {"color": "#97c2fc", "id": "discussion and comment purposes", "label": "discussion and comment purposes", "shape": "dot"}, {"color": "#97c2fc", "id": "peer-reviewed", "label": "peer-reviewed", "shape": "dot"}, {"color": "#97c2fc", "id": "review by the NBER Board of Directors", "label": "review by the NBER Board of Directors", "shape": "dot"}, {"color": "#97c2fc", "id": "NBER Board of Directors", "label": "NBER Board of Directors", "shape": "dot"}, {"color": "#97c2fc", "id": "official NBER publications", "label": "official NBER publications", "shape": "dot"}, {"color": "#97c2fc", "id": "NBER", "label": "NBER", "shape": "dot"}, {"color": "#97c2fc", "id": "COVID-19", "label": "COVID-19", "shape": "dot"}, {"color": "#97c2fc", "id": "Student Experiences", "label": "Student Experiences", "shape": "dot"}, {"color": "#97c2fc", "id": "Student Expectations", "label": "Student Expectations", "shape": "dot"}, {"color": "#97c2fc", "id": "NBER Working Paper No. 27392", "label": "NBER Working Paper No. 27392", "shape": "dot"}, {"color": "#97c2fc", "id": "higher education", "label": "higher education", "shape": "dot"}, {"color": "#97c2fc", "id": "students", "label": "students", "shape": "dot"}, {"color": "#97c2fc", "id": "United States", "label": "United States", "shape": "dot"}, {"color": "#97c2fc", "id": "pandemic", "label": "pandemic", "shape": "dot"}, {"color": "#97c2fc", "id": "outcomes", "label": "outcomes", "shape": "dot"}, {"color": "#97c2fc", "id": "graduation", "label": "graduation", "shape": "dot"}, {"color": "#97c2fc", "id": "job", "label": "job", "shape": "dot"}, {"color": "#97c2fc", "id": "job offer", "label": "job offer", "shape": "dot"}, {"color": "#97c2fc", "id": "age 35", "label": "age 35", "shape": "dot"}, {"color": "#97c2fc", "id": "study time", "label": "study time", "shape": "dot"}, {"color": "#97c2fc", "id": "hours per week", "label": "hours per week", "shape": "dot"}, {"color": "#97c2fc", "id": "socioeconomic divides", "label": "socioeconomic divides", "shape": "dot"}, {"color": "#97c2fc", "id": "lower-income students", "label": "lower-income students", "shape": "dot"}, {"color": "#97c2fc", "id": "higher-income peers", "label": "higher-income peers", "shape": "dot"}, {"color": "#97c2fc", "id": "economic shocks", "label": "economic shocks", "shape": "dot"}, {"color": "#97c2fc", "id": "health related shocks", "label": "health related shocks", "shape": "dot"}, {"color": "#97c2fc", "id": "Arizona State University", "label": "Arizona State University", "shape": "dot"}, {"color": "#97c2fc", "id": "Department of Economics", "label": "Department of Economics", "shape": "dot"}, {"color": "#97c2fc", "id": "mugaldea@asu.edu", "label": "mugaldea@asu.edu", "shape": "dot"}, {"color": "#97c2fc", "id": "basitak@gmail.com", "label": "basitak@gmail.com", "shape": "dot"}, {"color": "#97c2fc", "id": "P.O. Box 879801 Tempe", "label": "P.O. Box 879801 Tempe", "shape": "dot"}, {"color": "#97c2fc", "id": "AZ 85287", "label": "AZ 85287", "shape": "dot"}, {"color": "#97c2fc", "id": "COVID-19 outbreak", "label": "COVID-19 outbreak", "shape": "dot"}, {"color": "#97c2fc", "id": "Higher education", "label": "Higher education", "shape": "dot"}, {"color": "#97c2fc", "id": "universities", "label": "universities", "shape": "dot"}, {"color": "#97c2fc", "id": "American Council on Education", "label": "American Council on Education", "shape": "dot"}, {"color": "#97c2fc", "id": "enrollment", "label": "enrollment", "shape": "dot"}, {"color": "#97c2fc", "id": "fall of 2020", "label": "fall of 2020", "shape": "dot"}, {"color": "#97c2fc", "id": "tuition", "label": "tuition", "shape": "dot"}, {"color": "#97c2fc", "id": "uncertain environment", "label": "uncertain environment", "shape": "dot"}, {"color": "#97c2fc", "id": "financial shocks", "label": "financial shocks", "shape": "dot"}, {"color": "#97c2fc", "id": "health shocks", "label": "health shocks", "shape": "dot"}, {"color": "#97c2fc", "id": "lack of resources", "label": "lack of resources", "shape": "dot"}, {"color": "#97c2fc", "id": "fear of becoming seriously sick", "label": "fear of becoming seriously sick", "shape": "dot"}, {"color": "#97c2fc", "id": "transition to online learning", "label": "transition to online learning", "shape": "dot"}, {"color": "#97c2fc", "id": "academic performance", "label": "academic performance", "shape": "dot"}, {"color": "#97c2fc", "id": "educational plans", "label": "educational plans", "shape": "dot"}, {"color": "#97c2fc", "id": "current labor market participation", "label": "current labor market participation", "shape": "dot"}, {"color": "#97c2fc", "id": "expectations about future employment", "label": "expectations about future employment", "shape": "dot"}]);
+                  edges = new vis.DataSet([{"from": "Esteban M. Aucejo", "title": "author of", "to": "THE IMPACT OF COVID-19 ON STUDENT EXPERIENCES AND EXPECTATIONS: EVIDENCE FROM A SURVEY"}, {"from": "Esteban M. Aucejo", "title": "affiliated with", "to": "NBER"}, {"from": "Esteban M. Aucejo", "title": "author of", "to": "NBER Working Paper No. 27392"}, {"from": "Esteban M. Aucejo", "title": "affiliated with", "to": "Arizona State University"}, {"from": "Esteban M. Aucejo", "title": "works in", "to": "Department of Economics"}, {"from": "Esteban M. Aucejo", "title": "studied by", "to": "COVID-19"}, {"from": "THE IMPACT OF COVID-19 ON STUDENT EXPERIENCES AND EXPECTATIONS: EVIDENCE FROM A SURVEY", "title": "author of", "to": "Jacob F. French"}, {"from": "THE IMPACT OF COVID-19 ON STUDENT EXPERIENCES AND EXPECTATIONS: EVIDENCE FROM A SURVEY", "title": "author of", "to": "Maria Paola Ugalde Araya"}, {"from": "THE IMPACT OF COVID-19 ON STUDENT EXPERIENCES AND EXPECTATIONS: EVIDENCE FROM A SURVEY", "title": "author of", "to": "Basit Zafar"}, {"from": "THE IMPACT OF COVID-19 ON STUDENT EXPERIENCES AND EXPECTATIONS: EVIDENCE FROM A SURVEY", "title": "is", "to": "Working Paper 27392"}, {"from": "THE IMPACT OF COVID-19 ON STUDENT EXPERIENCES AND EXPECTATIONS: EVIDENCE FROM A SURVEY", "title": "provided research assistance for", "to": "Noah Deitrick"}, {"from": "THE IMPACT OF COVID-19 ON STUDENT EXPERIENCES AND EXPECTATIONS: EVIDENCE FROM A SURVEY", "title": "provided research assistance for", "to": "Adam Streff"}, {"from": "Jacob F. French", "title": "author of NBER publication", "to": "NBER"}, {"from": "Jacob F. French", "title": "author of", "to": "NBER Working Paper No. 27392"}, {"from": "Jacob F. French", "title": "affiliated with", "to": "Arizona State University"}, {"from": "Jacob F. French", "title": "studied by", "to": "COVID-19"}, {"from": "Maria Paola Ugalde Araya", "title": "author of NBER publication", "to": "NBER"}, {"from": "Maria Paola Ugalde Araya", "title": "author of", "to": "NBER Working Paper No. 27392"}, {"from": "Maria Paola Ugalde Araya", "title": "affiliated with", "to": "Arizona State University"}, {"from": "Maria Paola Ugalde Araya", "title": "studied by", "to": "COVID-19"}, {"from": "Maria Paola Ugalde Araya", "title": "has email", "to": "mugaldea@asu.edu"}, {"from": "Basit Zafar", "title": "affiliated with", "to": "NBER"}, {"from": "Basit Zafar", "title": "author of", "to": "NBER Working Paper No. 27392"}, {"from": "Basit Zafar", "title": "studied by", "to": "COVID-19"}, {"from": "Basit Zafar", "title": "affiliated with", "to": "Department of Economics"}, {"from": "Basit Zafar", "title": "affiliated with", "to": "Arizona State University"}, {"from": "Basit Zafar", "title": "has email", "to": "basitak@gmail.com"}, {"from": "Working Paper 27392", "title": "url for", "to": "http://www.nber.org/papers/w27392"}, {"from": "NATIONAL BUREAU OF ECONOMIC RESEARCH", "title": "publishes", "to": "NBER WORKING PAPER SERIES"}, {"from": "NATIONAL BUREAU OF ECONOMIC RESEARCH", "title": "located at", "to": "1050 Massachusetts Avenue"}, {"from": "NATIONAL BUREAU OF ECONOMIC RESEARCH", "title": "published in", "to": "June 2020"}, {"from": "1050 Massachusetts Avenue", "title": "in", "to": "Cambridge, MA 02138"}, {"from": "Noah Deitrick", "title": "provided", "to": "research assistance"}, {"from": "Adam Streff", "title": "provided", "to": "research assistance"}, {"from": "authors", "title": "views do not reflect", "to": "National Bureau of Economic Research"}, {"from": "NBER working papers", "title": "circulated for", "to": "discussion and comment purposes"}, {"from": "NBER working papers", "title": "have not been", "to": "peer-reviewed"}, {"from": "NBER working papers", "title": "been subject to", "to": "review by the NBER Board of Directors"}, {"from": "NBER Board of Directors", "title": "accompanies", "to": "official NBER publications"}, {"from": "COVID-19", "title": "impacts", "to": "Student Experiences"}, {"from": "COVID-19", "title": "impacts", "to": "Student Expectations"}, {"from": "COVID-19", "title": "discusses impact of", "to": "NBER Working Paper No. 27392"}, {"from": "COVID-19", "title": "impacted by", "to": "higher education"}, {"from": "COVID-19", "title": "due to", "to": "graduation"}, {"from": "COVID-19", "title": "lost", "to": "job"}, {"from": "COVID-19", "title": "lost", "to": "job offer"}, {"from": "COVID-19", "title": "due to", "to": "study time"}, {"from": "COVID-19", "title": "induced by", "to": "economic shocks"}, {"from": "COVID-19", "title": "induced by", "to": "health related shocks"}, {"from": "Student Experiences", "title": "discusses", "to": "NBER Working Paper No. 27392"}, {"from": "Student Expectations", "title": "discusses", "to": "NBER Working Paper No. 27392"}, {"from": "NBER Working Paper No. 27392", "title": "focuses on impact on", "to": "higher education"}, {"from": "students", "title": "surveyed at institution in", "to": "United States"}, {"from": "students", "title": "impacts", "to": "pandemic"}, {"from": "students", "title": "expect to earn less at", "to": "age 35"}, {"from": "students", "title": "decreased", "to": "study time"}, {"from": "students", "title": "impacted", "to": "COVID-19 outbreak"}, {"from": "students", "title": "face", "to": "uncertain environment"}, {"from": "students", "title": "affect", "to": "financial shocks"}, {"from": "students", "title": "affect", "to": "health shocks"}, {"from": "students", "title": "affect", "to": "lack of resources"}, {"from": "students", "title": "affect", "to": "fear of becoming seriously sick"}, {"from": "students", "title": "affect", "to": "transition to online learning"}, {"from": "students", "title": "affected", "to": "academic performance"}, {"from": "students", "title": "affected", "to": "educational plans"}, {"from": "students", "title": "affected", "to": "current labor market participation"}, {"from": "students", "title": "affected", "to": "expectations about future employment"}, {"from": "pandemic", "title": "impacts", "to": "outcomes"}, {"from": "graduation", "title": "delayed", "to": "lower-income students"}, {"from": "study time", "title": "measured in", "to": "hours per week"}, {"from": "socioeconomic divides", "title": "followed by", "to": "lower-income students"}, {"from": "lower-income students", "title": "compared to", "to": "higher-income peers"}, {"from": "Arizona State University", "title": "part of", "to": "Department of Economics"}, {"from": "Arizona State University", "title": "located at", "to": "P.O. Box 879801 Tempe"}, {"from": "P.O. Box 879801 Tempe", "title": "has zip code", "to": "AZ 85287"}, {"from": "COVID-19 outbreak", "title": "impacted", "to": "Higher education"}, {"from": "COVID-19 outbreak", "title": "impacted", "to": "universities"}, {"from": "universities", "title": "confront demands for cuts", "to": "tuition"}, {"from": "American Council on Education", "title": "predicts", "to": "enrollment"}, {"from": "enrollment", "title": "in", "to": "fall of 2020"}, {"from": "financial shocks", "title": "example of", "to": "lack of resources"}, {"from": "health shocks", "title": "example of", "to": "fear of becoming seriously sick"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
